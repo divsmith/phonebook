@@ -8,5 +8,5 @@ interface Parser {
      *
      * @return string
      */
-    public function parseUrl();
+    public function parseUrl($url);
 }
