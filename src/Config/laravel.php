@@ -8,26 +8,10 @@ return [
          */
         'model' => 'App\Tenant',
 
-        /**
-         * Plural lowercase name of the model used for associations.
-         */
-        'plural' => 'tenants',
-
-        'route' => [
-
-            /**
-             * Route parameter used to identify tenants, i.e.
-             *
-             *  Route::group([domain => {tenant}.myapp.com ...) or
-             *  Route::group([domain => myapp.com/{tenant} ...)
-             */
-            'parameter' => 'tenant'
-        ],
-
         'database' => [
 
             /**
-             * Database column associated with the route parameter.
+             * Database column associated with the url identifier.
              */
             'column' => 'slug'
         ]
