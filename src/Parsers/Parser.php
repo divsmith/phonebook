@@ -4,10 +4,11 @@ interface Parser {
 
     /**
      * Return the part of the URL used
-     * for matching a tenant.
+     * for matching a tenant or null
+     * if URL piece is not present.
      *
      * @param $url
-     * @return string
+     * @return string | null
      */
     public function parseUrl($url);
 }
