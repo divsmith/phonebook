@@ -4,6 +4,7 @@ use Illuminate\Contracts;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Phonebook\Parsers\Parser;
 
 class EloquentTenantResolver implements TenantResolver {
 
@@ -11,18 +12,14 @@ class EloquentTenantResolver implements TenantResolver {
 
     protected $config;
 
-    public function __construct(Repository $config, Application $app, Request $request)
+    public function __construct(Repository $config, Application $app, Request $request, Parser $parser)
     {
         $this->config = $config;
 
         $model = $app->make($this->config->get('phonebook.tenant.model', 'tenant'));
         $column = $this->config->get('phonebook.tenant.database.column', 'slug');
 
-        $matches = [];
-        $pattern = '/https?:\/\/(?:([^.]*)\.)[\S]+/';
-        preg_match($pattern, $request->url(), $matches);
-
-        $tenantRouteParamter = $matches[1];
+        $tenantRouteParamter = $parser->parseUrl($request->url());
 
         $this->tenant = $model->where($column, $tenantRouteParamter)->first();
 
