@@ -2,5 +2,8 @@
 
 interface TenantResolver {
 
+    /**
+     * @return int | null
+     */
     public function getTenantId();
 }
