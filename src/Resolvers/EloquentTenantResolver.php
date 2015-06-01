@@ -10,19 +10,13 @@ class EloquentTenantResolver implements TenantResolver {
 
     protected $tenant;
 
-    protected $config;
-
     public function __construct(Repository $config, Application $app, Request $request, Parser $parser)
     {
-        $this->config = $config;
+        $model = $app->make($config->get('phonebook.tenant.model', 'tenant'));
+        $column = $config->get('phonebook.tenant.database.column', 'slug');
+        $tenantUrlParameter = $parser->parseUrl($request->url());
 
-        $model = $app->make($this->config->get('phonebook.tenant.model', 'tenant'));
-        $column = $this->config->get('phonebook.tenant.database.column', 'slug');
-
-        $tenantRouteParamter = $parser->parseUrl($request->url());
-
-        $this->tenant = $model->where($column, $tenantRouteParamter)->first();
-
+        $this->tenant = $model->where($column, $tenantUrlParameter)->first();
     }
 
     /**
