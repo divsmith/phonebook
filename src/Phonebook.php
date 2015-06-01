@@ -27,7 +27,7 @@ class Phonebook {
     {
         $tenantId = $this->tenantResolver->getTenantId();
 
-        $request->attributes->add('tenantId', $tenantId);
+        $request->attributes->add(['tenantId' => $tenantId]);
 
         return $next($request);
     }
