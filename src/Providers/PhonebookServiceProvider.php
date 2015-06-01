@@ -1,7 +1,9 @@
 <?php  namespace Phonebook\Providers; 
 
 use Illuminate\Support\ServiceProvider;
-use Phonebook\Phonebook;
+use Phonebook\Middleware\Phonebook;
+use Phonebook\Parsers\SubdomainParser;
+
 use Phonebook\Resolvers\EloquentTenantResolver;
 
 class PhonebookServiceProvider extends ServiceProvider {
@@ -13,9 +15,14 @@ class PhonebookServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+        $this->app->bind('Phonebook\Parsers\Parser', function($app)
+        {
+            return new SubdomainParser();
+        });
+
         $this->app->bind('Phonebook\Resolvers\TenantResolver', function($app)
         {
-            return new EloquentTenantResolver($app['config'], $app, $app['request']);
+            return new EloquentTenantResolver($app['config'], $app, $app['request'], $app['Phonebook\Parsers\Parser']);
         });
 
         $this->app->bind('Phonebook\Phonebook', function($app)
