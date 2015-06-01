@@ -1,0 +1,6 @@
+suites:
+    my_suite:
+        namespace: Phonebook
+        psr4_prefix: Phonebook
+        src_path: src
+        spec_prefix: spec
