@@ -1,9 +1,10 @@
 <?php  namespace Phonebook\Providers; 
 
+use Illuminate\Support\ServiceProvider;
 use Phonebook\Phonebook;
 use Phonebook\Resolvers\EloquentTenantResolver;
 
-class PhonebookServiceProvider {
+class PhonebookServiceProvider extends ServiceProvider {
 
     /**
      * Register the service provider.
