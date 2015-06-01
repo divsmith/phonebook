@@ -1,5 +1,7 @@
 <?php  namespace Phonebook; 
 
+use Phonebook\Resolvers\TenantResolver;
+
 abstract class Phonebook {
 
     /**
